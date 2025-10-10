@@ -28,6 +28,7 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+    command: sh -c "sleep 10 && node index.js" 
     networks:
       - ev_network
     restart: always
@@ -35,13 +36,14 @@ services:
   booking-service:
     build: ../ev-service-center-backend/booking-service
     container_name: ev_booking_service
-    env_file: 
+    env_file:
       - ../ev-service-center-backend/booking-service/.env
     ports:
       - "5002:5002"
     depends_on:
       mysql:
         condition: service_healthy
+    command: sh -c "sleep 10 && node index.js"
     networks:
       - ev_network
     restart: always
@@ -56,6 +58,7 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+    command: sh -c "sleep 10 && node index.js"   
     networks:
       - ev_network
     restart: always
@@ -70,6 +73,7 @@ services:
     depends_on:
       mysql:
        condition: service_healthy
+    command: sh -c "sleep 10 && node index.js"
     networks:
       - ev_network
     restart: always
@@ -84,6 +88,7 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+    command: sh -c "sleep 10 && node index.js"
     networks:
       - ev_network
     restart: always
@@ -98,6 +103,7 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+    command: sh -c "sleep 10 && node index.js"
     networks:
       - ev_network
     restart: always
@@ -112,6 +118,22 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+    command: sh -c "sleep 10 && node index.js"
+    networks:
+      - ev_network
+    restart: always
+  
+  chat-service:  
+    build: ../ev-service-center-backend/chat-service
+    container_name: ev_chat_service
+    env_file: 
+      - ../ev-service-center-backend/chat-service/.env
+    ports:
+      - "5008:5008"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    command: sh -c "sleep 10 && node index.js"
     networks:
       - ev_network
     restart: always

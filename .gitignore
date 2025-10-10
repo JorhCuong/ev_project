@@ -1,0 +1,7 @@
+# Ignore local MySQL data
+infra/mysql-data/
+infra/mysql/
+
+.env
+
+node_modules/
