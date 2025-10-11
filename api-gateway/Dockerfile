@@ -1,20 +1,17 @@
-# Sử dụng Node.js nhẹ
-FROM node:20-alpine
+# api-gateway/Dockerfile
+FROM node:18-alpine
 
-# Thiết lập thư mục làm việc
-WORKDIR /app
+WORKDIR /usr/src/app
 
-# Copy package files
-COPY package*.json ./
+# copy package manifests first to leverage docker cache
+COPY package.json package-lock.json* ./
 
-# Cài đặt dependencies
-RUN npm install
+RUN npm ci --only=production
 
-# Copy toàn bộ mã nguồn vào container
+# copy source
 COPY . .
 
-# Expose cổng mà API Gateway chạy
+ENV NODE_ENV=production
 EXPOSE 8080
 
-# Lệnh khởi động service
-CMD ["npm", "start"]
+CMD ["node", "index.js"]
