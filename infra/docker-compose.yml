@@ -138,6 +138,30 @@ services:
       - ev_network
     restart: always
 
+  api-gateway:
+    build:
+      context: ../api-gateway
+      dockerfile: Dockerfile
+    image: ev/api-gateway:latest
+    container_name: api-gateway
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+    depends_on:
+      - auth-service
+      - booking-service
+      - vehicle-service
+      - workorder-service
+      - finance-service
+      - inventory-service
+      - chat-service
+      - notification-service
+    networks:
+      - ev_network
+
 networks:
   ev_network:
     name: infra_ev_network
