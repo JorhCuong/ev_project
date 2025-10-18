@@ -31,6 +31,10 @@ io.on("connection", (socket) => {
   });
 });
 
+app.get("/health", (req, res) => {
+  res.json({ status: "ok", service: "chat-service" });
+});
+
 server.listen(PORT, async () => {
   try {
     await sequelize.sync();

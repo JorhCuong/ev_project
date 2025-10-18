@@ -1,16 +1,20 @@
 {
-  "devDependencies": {
-    "nodemon": "^3.1.10"
-  },
+  "name": "ev-service-center-backend",
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
-    "dev": "nodemon src/app.js"
+    "start:auth": "cd auth-service && npm start",
+    "start:vehicle": "cd vehicle-service && npm start",
+    "start:booking": "cd booking-service && npm start",
+    "start:workorder": "cd workorder-service && npm start",
+    "start:inventory": "cd inventory-service && npm start",
+    "start:finance": "cd finance-service && npm start",
+    "start:notification": "cd notification-service && npm start",
+    "start:chat": "cd chat-service && npm start",
+    "start:all": "concurrently \"npm run start:auth\" \"npm run start:vehicle\" \"npm run start:booking\""
   },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.3",
-    "express": "^5.1.0",
-    "mysql2": "^3.15.2",
-    "sequelize": "^6.37.7",
-    "socket.io": "^4.8.1"
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^8.2.0"
   }
 }

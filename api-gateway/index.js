@@ -23,15 +23,15 @@ const proxyTo = (target) => createProxyMiddleware({
   logLevel: "warn"
 });
 
-// Route mapping — update ports/hosts if your services listen on different ports
-app.use("/api/auth", proxyTo("http://auth-service:5001"));
-app.use("/api/booking", proxyTo("http://booking-service:5002"));
-app.use("/api/vehicle", proxyTo("http://vehicle-service:5005"));
-app.use("/api/workorder", proxyTo("http://workorder-service:5007"));
-app.use("/api/finance", proxyTo("http://finance-service:5003"));
-app.use("/api/inventory", proxyTo("http://inventory-service:5004"));
-app.use("/api/chat", proxyTo("http://chat-service:5008"));
-app.use("/api/notification", proxyTo("http://notification-service:5005"));
+// Proxy các route
+app.use("/api/auth", createProxyMiddleware({ target: process.env.AUTH_SERVICE, changeOrigin: true }));
+app.use("/api/booking", createProxyMiddleware({ target: process.env.BOOKING_SERVICE, changeOrigin: true }));
+app.use("/api/finance", createProxyMiddleware({ target: process.env.FINANCE_SERVICE, changeOrigin: true }));
+app.use("/api/inventory", createProxyMiddleware({ target: process.env.INVENTORY_SERVICE, changeOrigin: true }));
+app.use("/api/notification", createProxyMiddleware({ target: process.env.NOTIFICATION_SERVICE, changeOrigin: true }));
+app.use("/api/vehicle", createProxyMiddleware({ target: process.env.VEHICLE_SERVICE, changeOrigin: true }));
+app.use("/api/workorder", createProxyMiddleware({ target: process.env.WORKORDER_SERVICE, changeOrigin: true }));
+app.use("/api/chat", createProxyMiddleware({ target: process.env.CHAT_SERVICE, changeOrigin: true }));
 
 // health
 app.get("/health", (req, res) => res.json({ status: "ok", service: "api-gateway" }));

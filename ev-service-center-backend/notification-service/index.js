@@ -1,9 +1,14 @@
-import express from "express";
-const app = express();
-import app from './src/app.js';
+import app from "./src/app.js";
+import sequelize from "./src/config/db.js";
 
 const PORT = process.env.PORT || 5005;
-app.get("/health", (req, res) => {
-  res.status(200).send("OK");
+
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', service: 'notification-service' });
 });
-app.listen(PORT, () => console.log(`🚀 Notification Service running on port ${PORT}`));
+sequelize
+  .sync()
+  .then(() => {
+    app.listen(PORT, () => console.log(`🚀 Notification Service running on port ${PORT}`));
+  })
+  .catch((err) => console.error("❌ DB Connection Error:", err));
